@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Shuffle My Dining Deck</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/css/bootstrap-theme.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/css/base.css' %}" />
+
+    {% block css %} {% endblock %}
+
+</head>
+<body role="document">
+
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'diningdeck:index' %}">Shuffle My Dining Deck</a>
+        </div>
+        <div class="navbar-collapse collapse" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'diningdeck:about' %}">About</a></li>
+
+                {% if name == None %}
+                    <li><a href="{% url 'diningdeck:register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+
+            {% if name == None %}
+                <form action="{% url 'diningdeck:dologin' %}" method="post" class="navbar-form navbar-right" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Username" name="username"></input>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" placeholder="Password" name="password"></input>
+                    </div>
+                    <button class="btn btn-success" type="submit" value="login">
+                        Sign in
+                    </button>
+                </form>
+            {% else %}
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="{% url 'diningdeck:dologout' %}">Logout</a></li>
+                </ul>
+            {% endif %}
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
+
+
+{% block content %}{% endblock %}
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="{% static 'diningdeck/js/bootstrap.min.js' %}"></script>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

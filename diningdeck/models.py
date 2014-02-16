@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Restaurant(models.Model):
@@ -11,16 +12,6 @@ class Restaurant(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-class User(models.Model):
-    username = models.CharField(max_length=50, unique=True)
-
-    given_name = models.CharField(max_length=50)
-    family_name = models.CharField(max_length=50)
-
-    def __unicode__(self):
-        return self.username + ": " + self.given_name + " " + self.family_name
 
 
 class UserEaten(models.Model):

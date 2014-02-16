@@ -1,76 +1,153 @@
+{% extends 'diningdeck/base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Shuffle My Dining Deck</title>
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/js/select2/select2.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/css/index_css.css' %}"/>
+{% endblock  %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/css/bootstrap-theme.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'diningdeck/css/index_css.css' %}" />
+{% block content %}
 
-</head>
-<body role="document">
+    <div class="container">
 
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Shuffle My Dining Deck</a>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="page-header">
+            <h1>Shuffle my Dining Deck <small>Find your next Denver adventure in Denver</small></h1>
         </div>
-        <div class="navbar-collapse collapse" style="height: 1px;">
-          <ul class="nav navbar-nav">
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Register</a></li>
-          </ul>
-          <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-              <input class="form-control" type="text" placeholder="Email"></input>
+
+        {% if name != None %}
+            <h2>Hello {{ name }}, Where will you be eating today?</h2>
+        {% else %}
+            <h2>Where will you be eating today?</h2>
+        {% endif %}
+        <div class="row">
+            <form class="form-inline" role="form">
+
+                <select id="price-select" class="col-md-2 col-xs-12">
+                    <option></option>
+                    <option value="1">$</option>
+                    <option value="2">$$</option>
+                    <option value="3">$$$</option>
+                    <option value="4">$$$$</option>
+                </select>
+
+                <div class="hidden-lg hidden-md hidden-sm">&nbsp;</div>
+
+                <select id="hood-select" class="col-md-2 col-xs-12">
+                    <option></option>
+                    <option value="foo">Foo</option>
+                    <option value="bar">Bar</option>
+                    <option value="baz">Baz</option>
+                    <option value="bletch">Bletch</option>
+                </select>
+
+                <div class="hidden-lg hidden-md hidden-sm">&nbsp;</div>
+            </form>
+            <button id="show-things" class="btn btn-success col-md-2 col-xs-12">Find Restaurants!</button>
+        </div>
+
+        <hr>
+        <div id="foo">
+            <h2> Three Things! </h2>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Lorem
+                        </div>
+                        <div class="panel-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies ut ligula vel dictum.
+                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                                Praesent vel turpis pharetra, lacinia sapien eget, varius neque. Aliquam suscipit vehicula
+                                purus, a pretium mi. Donec turpis turpis, euismod ut lacinia sed, consectetur id risus.
+                                Curabitur ut mi sit amet leo faucibus tempus at eget odio. Aliquam vestibulum quis nisl nec
+                                adipiscing. In sit amet imperdiet risus. Sed mattis sem sed nulla volutpat, vel bibendum
+                                arcu auctor. Vestibulum feugiat facilisis massa id commodo.</p>
+                            <dl class="dl-horizontal">
+                                <dt>Neighborhood:</dt>
+                                <dd>Some Location</dd>
+                                <dt>Cost:</dt>
+                                <dd>Such Money!</dd>
+                            </dl>
+
+                            <div class="panel-footer">
+                                <p><a href="#" class="ate-here btn btn-sm btn-primary" role="button">I've Eaten Here!</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Ipsum
+                        </div>
+                        <div class="panel-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies ut ligula vel dictum.
+                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                                Praesent vel turpis pharetra, lacinia sapien eget, varius neque. Aliquam suscipit vehicula
+                                purus, a pretium mi. Donec turpis turpis, euismod ut lacinia sed, consectetur id risus.
+                                Curabitur ut mi sit amet leo faucibus tempus at eget odio. Aliquam vestibulum quis nisl nec
+                                adipiscing. In sit amet imperdiet risus. Sed mattis sem sed nulla volutpat, vel bibendum
+                                arcu auctor. Vestibulum feugiat facilisis massa id commodo.</p>
+                            <dl class="dl-horizontal">
+                                <dt>Neighborhood:</dt>
+                                <dd>Some Location</dd>
+                                <dt>Cost:</dt>
+                                <dd>Such Money!</dd>
+                            </dl>
+                            <div class="panel-footer">
+                                <p><a href="#" class="ate-here btn btn-sm btn-primary" role="button">I've Eaten Here!</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Dolor
+                        </div>
+                        <div class="panel-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies ut ligula vel dictum.
+                                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                                Praesent vel turpis pharetra, lacinia sapien eget, varius neque. Aliquam suscipit vehicula
+                                purus, a pretium mi. Donec turpis turpis, euismod ut lacinia sed, consectetur id risus.
+                                Curabitur ut mi sit amet leo faucibus tempus at eget odio. Aliquam vestibulum quis nisl nec
+                                adipiscing. In sit amet imperdiet risus. Sed mattis sem sed nulla volutpat, vel bibendum
+                                arcu auctor. Vestibulum feugiat facilisis massa id commodo.</p>
+                            <dl class="dl-horizontal">
+                                <dt>Neighborhood:</dt>
+                                <dd>Some Location</dd>
+                                <dt>Cost:</dt>
+                                <dd>Such Money!</dd>
+                            </dl>
+                            <div class="panel-footer">
+                                <p><a href="#" class="ate-here btn btn-sm btn-primary" role="button">I've Eaten Here!</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
-              <input class="form-control" type="password" placeholder="Password"></input>
-            </div>
-            <button class="btn btn-success" type="submit">
-              Sign in
-            </button>
-          </form>
-        </div><!--/.nav-collapse -->
-      </div>
+        </div>
     </div>
+    <!-- /.container -->
+{% endblock %}
 
-    <div class="container theme-showcase" role="main">
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>I'm Hungry!!</h1>
-        <p>Do you have a Denver Dining Deck? (If not, purchase one <a href="">here</a> they're great!)</p>
-        <p>Can't decide where to eat?</p>
-        <p>If so, use this application to shuffle your dining deck and decide what you cullinary adventure will be!</p>
-      </div>
-
-
-
-      <div class="page-header">
-        <h1>Filters</h1>
-      </div>
-      <p>
-        <button type="button" class="btn btn-lg btn-success">Find Restaurants!</button>
-      </p>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-  </div>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="{% static 'diningdeck/js/bootstrap.min.js' %}"></script>
-  </body>
-</html>
+{% block scripts %}
+<script src="{% static 'diningdeck/js/select2/select2.min.js' %}"></script>
+<script src="{% static 'diningdeck/js/index.js' %}"></script>
+{% endblock %}
