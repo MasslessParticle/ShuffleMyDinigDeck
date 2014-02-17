@@ -20,5 +20,5 @@ class UserEaten(models.Model):
     did_eat = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return self.user.username + " ate at " + self.restaurant.name + ": " + str(self.did_eat)
+        return self.user.username + " ate at " + self.restaurant.name
 

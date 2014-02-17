@@ -154,4 +154,55 @@ def logout(request):
     auth.logout(request)
     return redirect('diningdeck:index')
 
+def restaurant_detail(request):
+    user = request.user
+
+    if user.is_authenticated():
+        name = user.username
+        if user.first_name != "":
+            name = user.first_name
+
+        context = {'name' : name}
+        restaurants = Restaurant.objects.all()
+        context['restaurants'] = restaurants
+
+        user_eaten = UserEaten.objects.filter(user=user)
+
+        user_ate_at = {}
+        for eaten in user_eaten:
+            user_ate_at[eaten.restaurant.name] = True
+
+        context['user_ate_at'] = user_ate_at
+        return render(request, 'diningdeck/detail.html', context)
+    else:
+        return redirect('diningdeck:index')
+
+def save_restaurants(request):
+    context = {}
+    context.update(csrf(request))
+
+    user = request.user
+
+    if request.POST and user.is_authenticated():
+        html_parser = HTMLParser.HTMLParser()
+        eaten = [html_parser.unescape(entry) for entry in request.POST.getlist('eaten')]
+        not_eaten = [html_parser.unescape(entry) for entry in request.POST.getlist('not-eaten')]
+        user_eaten = UserEaten.objects.filter(user=user)
+
+        for eaten_record in user_eaten:
+            restaurant_name = eaten_record.restaurant.name
+            if restaurant_name in not_eaten:
+                eaten_record.delete()
+
+        for eaten_restaurant in eaten:
+            restaurant = Restaurant.objects.get(name=eaten_restaurant)
+            new_eaten = UserEaten.objects.create(user=user, restaurant=restaurant)
+            new_eaten.save()
+
+        response = {'success' : True}
+
+        return HttpResponse(json.dumps(response), content_type='application/json')
+    else:
+        return redirect('diningdeck:index')
+
 

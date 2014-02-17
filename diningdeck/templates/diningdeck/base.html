@@ -35,6 +35,8 @@
 
                 {% if name == None %}
                     <li><a href="{% url 'diningdeck:register' %}">Register</a></li>
+                {% else %}
+                    <li><a href="{% url 'diningdeck:detail' %}">Manage Restaurants</a></li>
                 {% endif %}
             </ul>
 
