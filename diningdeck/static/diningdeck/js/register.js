@@ -17,6 +17,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 Author: Travis Patterson (masslessparticle@gmail.com)
 */
 
+//Initial validation of the registrationa form
 function validateForm(){
     var username = $('#username').val();
     var password = $('#password').val();
@@ -75,6 +76,7 @@ function validateForm(){
 
 $(document).ready(
     function () {
+        //Add validation to submit response.
         $('#submitButton').click(
             function (event) {
                 event.preventDefault();

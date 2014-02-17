@@ -22,6 +22,15 @@ from django.contrib.auth.models import User
 from diningdeck.models import UserEaten, Restaurant
 
 def create_user(first_name, last_name, username, password):
+    '''
+    Utility to create a user
+
+    Takes:
+        first_name (string): user's first name
+        last_name (string): user's last name
+        username_name (string): user's username
+        password (string): user's password
+    '''
     if len(User.objects.filter(username=username)) != 0:
         return False
 
@@ -34,6 +43,13 @@ def create_user(first_name, last_name, username, password):
     return True
 
 def save_eaten_at(restaurant_list, user):
+    '''
+    Creates and save where the user has eaten
+
+    Takes:
+        restaurant_list (list(string)): A list of restaurant names the user has eaten at
+        user (User): The user who has eaten at the restaurants.
+    '''
     restaurants = Restaurant.objects.filter(name__in=restaurant_list)
 
     for restaurant in restaurants:

@@ -34,8 +34,8 @@ from diningdeck.util import create_user, save_eaten_at
 import json
 import HTMLParser
 
-# Create your views here.
 def index(request):
+    ''' Handle requests to the index page'''
     context = {'name': None}
     user = request.user
 
@@ -50,10 +50,11 @@ def index(request):
     return render(request, 'diningdeck/index.html', context)
 
 def register(request):
+    '''Handle requests to the registration page'''
     context = {}
     context.update(csrf(request))
 
-    if request.POST:
+    if request.POST: #  save registration information
 
         first_name = ""
         last_name = ""
@@ -97,6 +98,7 @@ def register(request):
     return render(request, 'diningdeck/register.html', context)
 
 def getsuggestion(request):
+    '''Respond to the ajax POST with a json list of restaurants to eat at'''
     context = {}
     context.update(csrf(request))
 
@@ -173,6 +175,7 @@ def logout(request):
     return redirect('diningdeck:index')
 
 def restaurant_detail(request):
+    '''Get the information about which restaurants the user has eaten at.'''
     user = request.user
 
     if user.is_authenticated():
@@ -196,6 +199,7 @@ def restaurant_detail(request):
         return redirect('diningdeck:index')
 
 def save_restaurants(request):
+    '''Respond to the AJAX call saving which restaurants the user has eaten at.'''
     context = {}
     context.update(csrf(request))
 
@@ -224,6 +228,7 @@ def save_restaurants(request):
         return redirect('diningdeck:index')
 
 def about(request):
+    '''Serve the about page'''
     return render(request, 'diningdeck/about.html')
 
 

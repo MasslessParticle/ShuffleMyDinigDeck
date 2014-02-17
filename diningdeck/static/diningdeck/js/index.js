@@ -17,10 +17,12 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 Author: Travis Patterson (masslessparticle@gmail.com)
 */
 
+// Creates Google Maps query url for the restaurant
 function createAddressLink(address) {
     return $('<a />', {href : "http://maps.google.com/?q=" + address + ", Denver, Colorado"})
 }
 
+//Builds the suggestion html and adds it to the DOM
 function buildSuggestions(response) {
     $('#suggestion-display').empty();
 
@@ -117,21 +119,7 @@ $(document).ready(
   function (){
     $('#restaurant-display').hide();
 
-	$('.tsp-menu').click(
-      function(event) {
-        var newText = $(this).text() + ' <span class="caret" />';
-      	var buttonGroup = $(this).parents('.btn-group');
-        $(buttonGroup).children('.btn').html(newText);
-      }
-    );
-
-    $('#filter-button').click(
-      function (event) {
-      	var icon = $(this).children('.glyphicon');
-        $(icon).toggleClass('glyphicon-plus-sign glyphicon-minus-sign', 500);
-      }
-    );
-
+    //Makes the AJAX call to get the restaurant suggestions.
     $('#show-things').click(
       function (event){
 

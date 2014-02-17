@@ -21,6 +21,7 @@ $(document).ready(
   function (){
     $('#message').hide();
 
+    //When the eaten buttons are clicked, change their color.
     $('.eaten-btn').click(function (event) {
         if($(this).attr('class').indexOf('btn-success') > 0) {
             $(this).removeClass('btn-success');
@@ -35,6 +36,7 @@ $(document).ready(
         event.preventDefault();
     });
 
+    //Gather a form and post it to save where the user has eaten
     $('#save-button').click(function(event){
         var formData = $('#save-form').serialize();
         var buttons = $('.eaten-btn');
