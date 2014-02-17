@@ -1,0 +1,43 @@
+{% extends 'diningdeck/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+        <h1>Shuffle My Dining Deck</h1>
+        <p class="lead">
+            Do you have a Denver Dining Deck? If not, <a href="http://eatdenver.com/eatdenver-deck/">go check them out.</a>
+        </p>
+        <p>
+            Among other things, I love great food and Denver has no shortage of it. Having recently relocated here,
+            I was truly excited to try the local fare.
+        </p>
+        <p>
+            I had a couple of problems, though. First: I didn't know anywhere to eat. Second: As I started finding
+            places, I couldn't decide where to go next.
+
+        </p>
+        <p>
+            Enter the Dining Deck. It's a product sold by <a href="http://eatdenver.com/">EatDenver</a>, an association of locally-owned Independent
+            restaurants, that has 52 $10 coupons for some of the tastiest restaurants in the Denver Metro Area. After
+            picking up a Dining Deck for myself, I had another problem: Analysis Paralysis. With 52 choices staring at
+            me every time I got hungry, I just couldn't decide.
+        </p>
+        <p>
+            Being a programmer, I decided that I'd solve this issue with code. Not only could I create something to
+            help me know where to eat but I'd also get to play with some new technology.
+        </p>
+        <p>
+            This site is the result. It will choose three restaurants randomly from the Dining Deck and present you with
+            their description, address, relative price, and phone number. You can even filter the results by the maximum
+            cost and neighborhood. If you register, you can keep track of where you've eaten so you don't ever get stale
+            recommendations.
+        </p>
+        <p>
+            Feedback is more than welcome! Contact me <a href="mailto:masslessparticle@gmail.com">here.</a>
+        </p>
+      </div>
+
+
+    </div>
+{% endblock %}

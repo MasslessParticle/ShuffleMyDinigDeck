@@ -205,4 +205,7 @@ def save_restaurants(request):
     else:
         return redirect('diningdeck:index')
 
+def about(request):
+    return render(request, 'diningdeck/about.html')
+
 

@@ -27,7 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'diningdeck:index' %}">Shuffle My Dining Deck</a>
+            <a class="navbar-brand" href="{% url 'diningdeck:index' %}"><span class="glyphicon glyphicon-cutlery"></span> Shuffle My Dining Deck</a>
         </div>
         <div class="navbar-collapse collapse" style="height: 1px;">
             <ul class="nav navbar-nav">
@@ -54,7 +54,7 @@
                     </button>
                 </form>
             {% else %}
-                <ul class="nav navbar-nav pull-right">
+                <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'diningdeck:dologout' %}">Logout</a></li>
                 </ul>
             {% endif %}

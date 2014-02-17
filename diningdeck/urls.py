@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     url(r'^getsuggestion/', views.getsuggestion, name='getsuggestion'),
     url(r'^login/$', views.login, name='dologin'),
     url(r'^logout/$', views.logout, name='dologout'),
-    url(r'^about/$', views.logout, name='about'),
+    url(r'^about/$', views.about, name='about'),
     url(r'^restaurants/$', views.restaurant_detail, name='detail'),
     url(r'^saverestaurants/$', views.save_restaurants, name='save')
 )

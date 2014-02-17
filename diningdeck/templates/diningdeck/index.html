@@ -20,14 +20,15 @@
         {% endif %}
 
         <div class="page-header">
-            <h1>Shuffle my Dining Deck <small>Find your next Denver adventure in Denver</small></h1>
-        </div>
+            <h1>Shuffle my Dining Deck: <small>your next dining adventure in Denver</small></h1>
 
-        {% if name != None %}
-            <h2>Hello {{ name }}, Where will you be eating today?</h2>
-        {% else %}
-            <h2>Where will you be eating today?</h2>
-        {% endif %}
+
+            {% if name != None %}
+                <h3>Hello {{ name }}, Where will you be eating today?</h3>
+            {% else %}
+                <h3>Where will you be eating today?</h3>
+            {% endif %}
+        </div>
         <div class="row">
             <form id="stuff-select" class="form-inline" role="form">
                 {% csrf_token %}

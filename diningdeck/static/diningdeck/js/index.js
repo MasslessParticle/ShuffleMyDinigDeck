@@ -152,7 +152,7 @@ $(document).ready(
     );
 
     $("#price-select").select2({
-        placeholder: "Price",
+        placeholder: "Max Price",
         allowClear: true
     });
 
