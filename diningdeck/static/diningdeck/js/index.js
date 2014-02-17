@@ -5,8 +5,27 @@ function createAddressLink(address) {
 function buildSuggestions(response) {
     $('#suggestion-display').empty();
 
-    var authendicated = response.authenticated;
+    var authenticated = response.authenticated;
     var restaurants = response.restaurants;
+
+    if (restaurants.length === 0) {
+        var alertDiv = $('<div />')
+            .addClass('alert')
+            .addClass('alert-danger');
+
+        $(alertDiv).html("No restaurants match your search. ")
+
+        var alertLink = $('<a />')
+            .addClass('alert-link')
+            .attr('href', '/diningdeck/restaurants/');
+
+        if (authenticated) {
+            $(alertLink).html("Have you eaten everywhere?");
+            $(alertDiv).append(alertLink);
+        }
+
+        $('#suggestion-display').append(alertDiv);
+    }
 
     for (var i = 0; i < restaurants.length; i++ ){
         var eatenLink = $('<a />')
@@ -37,8 +56,6 @@ function buildSuggestions(response) {
             + encodeURIComponent(restaurants[i].address)
             + ", Denver, Colorado";
 
-
-
         colDiv.append(panelDiv);
         panelDiv.append(panelHeader);
         panelDiv.append(panelBody);
@@ -47,7 +64,7 @@ function buildSuggestions(response) {
         panelBody.append($('<p />').html(restaurants[i].description));
         panelBody.append(detailList);
 
-        if (authendicated) {
+        if (authenticated) {
             panelFooter.append($('<p />').append(eatenLink));
         } else {
             panelFooter.append($('<p />').html(registerLink))
