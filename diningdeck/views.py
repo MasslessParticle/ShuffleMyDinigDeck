@@ -1,17 +1,20 @@
+from random import shuffle
+from urllib import unquote
+
 from django.shortcuts import render, redirect
 from django.core.context_processors import csrf
 from django.http import HttpResponse
-from django.contrib.auth.models import auth, User
+from django.contrib.auth.models import auth
 from django.contrib import messages
 from django.db.models import Q
 from django.forms import model_to_dict
 from django.utils.html import strip_tags
 
 from diningdeck.models import Restaurant, UserEaten
-from diningdeck.util import create_user
+from diningdeck.util import create_user, save_eaten_at
 
-from random import shuffle
 import json
+import HTMLParser
 
 # Create your views here.
 def index(request):
@@ -85,11 +88,16 @@ def getsuggestion(request):
         restaurants = Restaurant.objects.all()
 
         if request.user.is_authenticated():
-            user_pk = request.user.pk
-            ate_at = UserEaten.objects.filter(user=user_pk)
+            html_parser = HTMLParser.HTMLParser()
 
-            for restaurant in ate_at:
-                restaurants.filter(~Q(id=restaurant.restaurant.pk))
+            if 'eaten-at' in request.POST:
+                eaten_at = [html_parser.unescape(entry) for entry in request.POST.getlist('eaten-at')]
+                save_eaten_at(eaten_at, request.user)
+
+            user = request.user
+            ate_at = UserEaten.objects.filter(user=user)
+            ate_at_list = [entry.restaurant.pk for entry in ate_at]
+            restaurants = restaurants.filter(~Q(pk__in=ate_at_list))
 
         if price != "":
             restaurants = restaurants.filter(cost__lte=price)

@@ -1,3 +1,7 @@
+function createAddressLink(address) {
+    return $('<a />', {href : "http://maps.google.com/?q=" + address + ", Denver, Colorado"})
+}
+
 function buildSuggestions(response) {
     $('#suggestion-display').empty();
 
@@ -15,7 +19,6 @@ function buildSuggestions(response) {
 
         var registerLink = $('<a />')
         .attr('href', '/diningdeck/register')
-        .addClass('ate-here')
         .addClass('btn')
         .addClass('btn-sm')
         .addClass('btn-primary')
@@ -28,6 +31,13 @@ function buildSuggestions(response) {
         var panelFooter = $('<div />', {class : "panel-footer text-center"});
 
         var detailList = $('<dt />', {class : "dl-horizontal"});
+        var resturantUrl = "http://maps.google.com/?q="
+            + encodeURIComponent(restaurants[i].name)
+            + ", "
+            + encodeURIComponent(restaurants[i].address)
+            + ", Denver, Colorado";
+
+
 
         colDiv.append(panelDiv);
         panelDiv.append(panelHeader);
@@ -48,7 +58,9 @@ function buildSuggestions(response) {
         detailList.append($('<dt />').html("Cost: "));
         detailList.append($('<dd />').html(restaurants[i].cost));
         detailList.append($('<dt />').html("Address: "));
-        detailList.append($('<dd />').html(restaurants[i].address));
+        detailList.append($('<dd />')
+            .append($('<a />', {href : resturantUrl, target : "blank"})
+                .html(restaurants[i].address)));
         detailList.append($('<dt />').html("Phone Number: "));
         detailList.append($('<dd />').html(restaurants[i].phone_number));
 
@@ -56,6 +68,13 @@ function buildSuggestions(response) {
     }
 
     $('#restaurant-display').show('slide');
+
+    $('.ate-here').click(
+      function (event){
+        $(this).toggleClass('btn-primary btn-danger', 500);
+        event.preventDefault();
+      }
+    );
 }
 
 $(document).ready(
@@ -81,6 +100,13 @@ $(document).ready(
       function (event){
 
         var formData = $('#stuff-select').serialize();
+        var eatenAt = $('.btn-danger').parents('.panel-primary');
+
+        for (var i = 0; i < eatenAt.length; i++){
+            var restaurant = encodeURIComponent($(eatenAt[i]).children('.panel-heading').html());
+            formData += "&eaten-at=" + restaurant;
+        }
+
         $.ajax({
             url: "/diningdeck/getsuggestion/",
             type: "post",
@@ -104,13 +130,6 @@ $(document).ready(
           }
         );
 
-        event.preventDefault();
-      }
-    );
-
-    $('.ate-here').promise( 'click',
-      function (event){
-        $(this).toggleClass('btn-primary btn-danger', 500);
         event.preventDefault();
       }
     );
