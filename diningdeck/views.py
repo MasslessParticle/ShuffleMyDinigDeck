@@ -184,7 +184,7 @@ def restaurant_detail(request):
             name = user.first_name
 
         context = {'name' : name}
-        restaurants = Restaurant.objects.all()
+        restaurants = Restaurant.objects.all().order_by('name')
         context['restaurants'] = restaurants
 
         user_eaten = UserEaten.objects.filter(user=user)

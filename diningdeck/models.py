@@ -26,7 +26,7 @@ class Restaurant(models.Model):
     description = models.TextField()
     cost = models.IntegerField(max_length=4)
     address = models.CharField(max_length=200)
-    phone_number = models.IntegerField(max_length=10)
+    phone_number = models.BigIntegerField(max_length=10)
     neighborhood = models.CharField(max_length=100)
 
     def __unicode__(self):
