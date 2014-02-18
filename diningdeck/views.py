@@ -228,7 +228,16 @@ def save_restaurants(request):
         return redirect('diningdeck:index')
 
 def about(request):
-    '''Serve the about page'''
-    return render(request, 'diningdeck/about.html')
+    context = {}
+
+    user = request.user
+
+    if user.is_authenticated():
+        name = user.username
+        if user.first_name != "":
+            name = user.first_name
+        context['name'] = name
+
+    return render(request, 'diningdeck/about.html', context)
 
 
