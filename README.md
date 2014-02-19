@@ -1,4 +1,4 @@
 ShuffleMyDinigDeck
 ===================
 
-Django Application to Get Denver Dining Deck restaurant suggestions
+Django Application to get Denver Dining Deck restaurant suggestions
