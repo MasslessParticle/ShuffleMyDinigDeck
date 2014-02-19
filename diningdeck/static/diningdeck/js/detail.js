@@ -26,11 +26,11 @@ $(document).ready(
         if($(this).attr('class').indexOf('btn-success') > 0) {
             $(this).removeClass('btn-success');
             $(this).addClass('btn-danger');
-            $(this).html("I've Eaten Here");
+            $(this).html('<span class="glyphicon glyphicon-remove"></span>');
         } else {
             $(this).removeClass('btn-danger');
             $(this).addClass('btn-success');
-            $(this).html("I Haven't Eaten Here");
+            $(this).html('<span class="glyphicon glyphicon-ok"></span>');
         }
 
         event.preventDefault();
@@ -82,6 +82,10 @@ $(document).ready(
                 alert('Request failed');
             }
         });
+
+        $("html").animate({ scrollTop: "0" });
+        $("body").animate({ scrollTop: "0" });
+
         event.preventDefault();
     });
 
